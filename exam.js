@@ -3,12 +3,12 @@
 Array.prototype.cIndexOf = require('./functions/customIndexOf');
 
 // Data
-const a = ["a", "b", "c", "d", "e", "a", "b"];
+const a = ['a', 'b', 'c', 'd', 'e', 'a', 'b'];
 
 /* Exercise 2
  * Note: See also ./customIndexOf.test.js
  */
-console.log("Custom indexOf function:")
+console.log("Custom indexOf method with ['a', 'b', 'c', 'd', 'e', 'a', 'b']:")
 console.log("Find 'a' starting at 0:", a.cIndexOf("a")); // should return 0
 console.log("Find 'c' starting at 2:", a.cIndexOf("c", 2)); // should return 2
 console.log("Find 'c' starting at 3:", a.cIndexOf("c", 3)); // should return -1
