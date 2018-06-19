@@ -13,7 +13,7 @@
  * @returns Number
  */
 
-const splitArray = (number, list_numbers) => {
+const splitArray = (number, listNumbers) => {
   if (typeof (number) != 'number') {
     // If parameter is not a number, throw error
     throw new TypeError("'number' parameter must be of type number");
@@ -22,36 +22,23 @@ const splitArray = (number, list_numbers) => {
     number = parseInt(number);
   }
 
-  for (var splitIndex = 0; splitIndex < list_numbers.length; splitIndex++) {
+  let numberPositions = [];
 
-    let numberCount = 0; // n1
-    let otherNumberCount = 0; // n2
-
-    for (let i = 0; i < list_numbers.length; i++) {
-
-      if (splitIndex > i) {
-        if (list_numbers[i] === number) {
-          numberCount++;
-        }
-      } else {
-        if (list_numbers[i] !== number) {
-          otherNumberCount++;
-        }
-      }
-
+  // Find all number occurences in array and save its position
+  for (let numberPosition = 0; numberPosition < listNumbers.length; numberPosition++) {
+    if (listNumbers[numberPosition] === number) {
+      numberPositions.push(numberPosition);
     }
-
-    if (numberCount == otherNumberCount) {
-      return splitIndex;
-    } else {
-      numberCount = 0;
-      otherNumberCount = 0;
-    }
-
   }
 
-  // Return 0 if split index was not found.
-  return 0;
+  // Check if we can split the array
+  if (numberPositions[0] === (listNumbers.length - numberPositions.length)) {
+    // Return 0 if we can't split
+    return 0;
+  } else {
+    return listNumbers.length - numberPositions.length;
+  }
+
 }
 
 

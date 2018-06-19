@@ -1,4 +1,3 @@
-
 /* Exercise 1 */
 // Import function
 Array.prototype.cIndexOf = require('./functions/customIndexOf');
@@ -25,9 +24,13 @@ const splitArray = require('./functions/splitArray');
 // Data
 const array_1 = [5, 2, 5, 0, 5, 7, 5];
 const array_2 = [5, 2, 3, 0, 2, 7, 5];
+const array_3 = [5, 5, 5, 5, 5, 0, 4, 3, 2, 3, 5, 3, 2, 5];
+const array_4 = [0, 2, 0, 0, 1, 2, 5, 5, 5, 5];
 const num = 5;
 
 // Results
 console.log("\nSplit Array function: ");
 console.log("Split [5, 2, 5, 0, 5, 7, 5] in 2 segments: ", splitArray(num, array_1)); // should be 3
-console.log("Split [5, 2, 3, 0, 2, 7, 5] in 2 segments: ", splitArray(num, array_2), "\n") // should be 5
+console.log("Split [5, 2, 3, 0, 2, 7, 5] in 2 segments: ", splitArray(num, array_2)) // should be 5
+console.log("Split [5, 5, 5, 5, 5, 0, 4, 3, 2, 3, 5, 3, 2, 5] in 2 segments: ", splitArray(num, array_3)) // should be 7
+console.log("Split [0, 2, 0, 0, 1, 2, 5, 5, 5, 5] in 2 segments: ", splitArray(num, array_4), "\n") // should be 0
