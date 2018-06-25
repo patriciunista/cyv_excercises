@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { FormControl } from 'react-bootstrap';
-import MockData from '../mock/CharactersWithS';
 
 class Search extends Component {
   constructor(props) {
@@ -17,16 +16,17 @@ class Search extends Component {
   };
 
   search = () => {
-    this.setState({ mockData: MockData }).then(() => {
-      this.props.results(this.state.mockData);
-    });
-    // fetch('api/' + this.props.for +'/' + this.state.searchString)
-    // .then(res => res.toJSON())
-    // .then(res =>
-    //   this.props.results({
-    //     characters: res.data
-    //   })
-    // );
+    fetch(
+      'http://localhost:3001/api/' +
+        this.props.for +
+        '/' +
+        this.state.searchString,
+      { method: 'GET' }
+    )
+      .then(res => res.json())
+      .then(res => {
+        this.props.results(res.data);
+      });
   };
 
   render() {

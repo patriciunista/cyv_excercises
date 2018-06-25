@@ -15,8 +15,7 @@ class App extends Component {
   }
 
   handleCharacterResults = (response) => {
-    console.log(response.results);
-    let filteredSearchResults = response.results.map(character => {
+    let filteredSearchResults = response.map(character => {
       const wikiUrlObject = Object.keys(character.urls)[0];
       return {
         name: character.name,
@@ -44,7 +43,7 @@ class App extends Component {
           </FormGroup>
         </form>
         <article className="search-results">
-          <section className="characters">
+          <section className="container characters">
             {this.state.searchResults !== null ? (
               this.state.searchResults.map(character => {
                 return <Character info={character} key={character.id} />;
