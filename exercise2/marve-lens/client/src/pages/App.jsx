@@ -14,20 +14,21 @@ class App extends Component {
     };
   }
 
-  handleCharacterResults = (response) => {
+  handleCharacterResults = response => {
     let filteredSearchResults = response.map(character => {
-      const wikiUrlObject = Object.keys(character.urls)[0];
       return {
         name: character.name,
-        avatar: character.thumbnail.path + "." + character.thumbnail.extension,
-        wikiUrl: character.urls[wikiUrlObject].url
+        avatar: character.thumbnail.path + '.' + character.thumbnail.extension,
+        wikiUrl: character.urls.filter(url => {
+          return url.type === 'wiki';
+        })
       };
     });
 
     this.setState({
       searchResults: filteredSearchResults
     });
-  }
+  };
 
   render() {
     return (
