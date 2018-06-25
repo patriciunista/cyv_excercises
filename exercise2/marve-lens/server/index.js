@@ -1,10 +1,11 @@
 const express = require('express')
 const app = express()
+const apiRoutes = require('./api/routes')
 
-app.get('/', (req, res) => res.send('Server api!'))
+app.get('/', (req, res) => res.send('Server api root, use "/api" to make requests!'))
 
-app.get('/api/:type/:args', (req, res) => {
-  res.send(req.type + req.args)
-})
+
+// We use the routes defined in /api/routes for better structure
+app.use('/api', apiRoutes)
 
 app.listen(3001, () => console.log('Example app listening on port 3001!'))
