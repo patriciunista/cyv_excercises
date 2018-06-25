@@ -1,0 +1,51 @@
+.character .thumbnail:hover .avatar {
+  opacity: 0.8;
+}
+
+.character .thumbnail .avatar {
+  transition: 0.5s;
+  height: 280px;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.character .avatar .details-button {
+  background-color: rgb(237, 27, 42);
+  padding: 10px 15px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.5s;
+  display: none;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.character .avatar:hover .details-button {
+  display: inline-block;
+}
+
+.character .avatar .details-button:hover {
+  color: rgb(237, 27, 42);
+  background-color: #000;
+}
+
+
+.character .name {
+  font-size: 1.2em;
+}
+
+.character .details {
+  min-height: 280px;
+  text-align: left;
+  padding: 10px 20px;
+  overflow: hidden;
+}
+
+.character .details .close-details {
+  cursor: pointer;
+}
