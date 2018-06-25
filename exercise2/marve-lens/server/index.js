@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const apiRoutes = require('./api/routes')
+const mongoose = require('mongoose')
 
 // Enable cors, see: https://github.com/expressjs/cors
 app.use(cors());

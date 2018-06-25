@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import logo from '../assets/logo.svg';
 import '../css/App.css';
-import { FormGroup, FormControl } from 'react-bootstrap';
 import Character from '../components/Character';
-import Search from '../components/Search';
+import SearchForm from '../components/SearchForm';
+import { Pager } from 'react-bootstrap';
 
 class App extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      searchResults: null
+      searchResults: null,
+      searchFor: 'characters'
     };
   }
 
@@ -30,6 +31,10 @@ class App extends Component {
     });
   };
 
+  searchAction() {
+    this.refs.searchForm.search();
+  }
+
   render() {
     return (
       <div className="App">
@@ -37,23 +42,32 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to MarveLens</h1>
         </header>
-        <form>
-          <FormGroup controlId="formBasicText">
-            <Search for="characters" results={this.handleCharacterResults} />
-            <FormControl.Feedback />
-          </FormGroup>
-        </form>
-        <article className="search-results">
-          <section className="container characters">
-            {this.state.searchResults !== null ? (
-              this.state.searchResults.map(character => {
-                return <Character info={character} key={character.id} />;
-              })
-            ) : (
-              <p>Start typing to search...</p>
-            )}
-          </section>
-        </article>
+        <div className="container">
+          <SearchForm
+            ref="searchForm"
+            for={this.state.searchFor}
+            results={this.handleCharacterResults}
+          />
+          {this.state.searchResults !== null ? (
+            <article className="search-results">
+              <div className="row">
+                {this.state.searchResults.length ? (
+                  this.state.searchResults.map(result => {
+                    if (this.state.searchFor === 'characters') {
+                      return <Character info={result} key={result.id} />;
+                    }
+                    return this.state.searchFor;
+                  })
+                ) : (
+                  <p>No {this.state.searchFor} found.</p>
+                )}
+              </div>
+              <a className="go-to-top" onClick={() => {document.documentElement.scrollTop = 0}}>Go To Top</a>
+            </article>
+          ) : (
+            ''
+          )}
+        </div>
       </div>
     );
   }
