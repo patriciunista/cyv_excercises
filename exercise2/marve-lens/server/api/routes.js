@@ -6,3 +6,5 @@ const charactersRoutes = require('./characters/endpoints')
 // another subfolder to create the different endpoints for our
 // requests to specific type of info
 routes.use('/characters', charactersRoutes)
+
+module.exports = routes

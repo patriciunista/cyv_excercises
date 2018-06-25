@@ -5548,4 +5548,4 @@ const MockData = {
   }
 };
 
-export default MockData;
+module.exports = MockData;
