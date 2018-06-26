@@ -15,24 +15,8 @@ class App extends Component {
   }
 
   handleCharacterResults = response => {
-    let filteredSearchResults = response.map(character => {
-      return {
-        name: character.name,
-        avatar: character.thumbnail.path + '.' + character.thumbnail.extension,
-        wikiUrl: character.urls.filter(url => {
-          return url.type === 'wiki';
-        }),
-        modified: character.modified,
-        description: character.description,
-        numComics: character.comics.available,
-        numSeries: character.series.available,
-        numStories: character.stories.available,
-        numEvents: character.events.available,
-      };
-    });
-
     this.setState({
-      searchResults: filteredSearchResults
+      searchResults: response
     });
   };
 
@@ -47,7 +31,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">MarveLens</h1>
         </header>
-        <div className="container">
+        <div className="App-body container">
           <SearchForm
             ref="searchForm"
             for={this.state.searchFor}
@@ -59,7 +43,7 @@ class App extends Component {
                 {this.state.searchResults.length ? (
                   this.state.searchResults.map(result => {
                     if (this.state.searchFor === 'characters') {
-                      return <Character info={result} key={result.id} />;
+                      return <Character character={result} key={result.id} />;
                     }
                     return this.state.searchFor;
                   })
@@ -73,6 +57,9 @@ class App extends Component {
             ''
           )}
         </div>
+        <footer className="App-footer">
+          Data provided by <a href="http://marvel.com">Marvel</a>. © 2018 MARVEL
+        </footer>
       </div>
     );
   }

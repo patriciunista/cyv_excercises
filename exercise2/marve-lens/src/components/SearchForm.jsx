@@ -14,6 +14,7 @@ class SearchForm extends Component {
 
     this.state = {
       searchString: '',
+      inputValue: '',
       page: 0,
       numPages: 0,
       error: null,
@@ -22,7 +23,7 @@ class SearchForm extends Component {
   }
 
   handleInput = event => {
-    this.setState({ searchString: event.target.value, page: 0 });
+    this.setState({ inputValue: event.target.value });
   };
 
   prevPage = () =>
@@ -52,40 +53,53 @@ class SearchForm extends Component {
     );
 
   search = () => {
-    if (this.state.searchString !== '') {
-      this.setState({ error: false, loading: true }, () => {
-        let searchUrl =
-          'api/' +
-          this.props.for +
-          '/' +
-          this.state.searchString +
-          '/page/' +
-          this.state.page;
-        fetch(searchUrl, { method: 'GET' })
-          .then(res => res.json())
-          .then(res => {
-            this.props.results(res.data.results);
-            this.setState(
-              {
-                numPages: Math.floor(res.data.total / 20) + 1,
-                loading: false,
-                paginationPages: []
-              },
-              () => {
-                this.loadPagination();
-              }
-            );
-          });
-      });
-    } else {
-      this.setState({ error: true });
+    if (this.state.inputValue !== '') {
+      this.setState(
+        prevState => {
+          let page =
+            prevState.searchString === this.state.inputValue
+              ? prevState.page
+              : 0;
+          return {
+            error: false,
+            loading: true,
+            page: page,
+            searchString: this.state.inputValue
+          };
+        },
+        () => {
+          let searchUrl =
+            'api/' +
+            this.props.for +
+            '/' +
+            this.state.searchString +
+            '/page/' +
+            this.state.page;
+          fetch(searchUrl, { method: 'GET' })
+            .then(res => res.json())
+            .then(res => {
+              this.props.results(res.data.results);
+              this.setState(
+                {
+                  numPages: Math.floor(res.data.total / 20) + 1,
+                  loading: false,
+                  paginationPages: []
+                },
+                () => {
+                  this.loadPagination();
+                }
+              );
+            });
+        }
+      );
     }
   };
 
   navigateToPage = e => {
-    this.setState({ page: parseInt(e.target.outerText, 10) }, () =>
-      this.search()
-    );
+    let pageNumber = parseInt(e.target.outerText, 10);
+    if (pageNumber !== this.state.page) {
+      this.setState({ page: pageNumber }, () => this.search());
+    }
   };
 
   loadPagination = () => {
@@ -120,7 +134,7 @@ class SearchForm extends Component {
             <FormControl
               type="text"
               placeholder={'Search for ' + this.props.for}
-              value={this.state.searchString}
+              value={this.state.inputValue}
               onInput={this.handleInput}
               required
             />

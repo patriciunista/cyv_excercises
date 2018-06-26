@@ -30,30 +30,30 @@ class Character extends Component {
                 <h4>Details</h4>
                 <li>
                   <strong>Description:</strong>{' '}
-                  {this.props.info.description || 'No description available.'}
+                  {this.props.character.details.description || 'No description available.'}
                 </li>
                 <li>
-                  <strong>Modified:</strong> {this.props.info.modified}
+                  <strong>Modified:</strong> {this.props.character.details.modified}
                 </li>
                 <li>
-                  <strong>Comics Available:</strong> {this.props.info.numComics}
+                  <strong>Comics Available:</strong> {this.props.character.details.numComics}
                 </li>
                 <li>
-                  <strong>Series Available:</strong> {this.props.info.numSeries}
+                  <strong>Series Available:</strong> {this.props.character.details.numSeries}
                 </li>
                 <li>
                   <strong>Stories Available:</strong>{' '}
-                  {this.props.info.numStories}
+                  {this.props.character.details.numStories}
                 </li>
                 <li>
-                  <strong>Events Available:</strong> {this.props.info.numEvents}
+                  <strong>Events Available:</strong> {this.props.character.details.numEvents}
                 </li>
               </div>
             ) : (
               <div
                 className="avatar"
                 style={{
-                  backgroundImage: 'url(' + this.props.info.avatar + ')'
+                  backgroundImage: 'url(' + this.props.character.avatar + ')'
                 }}
               >
                 <div
@@ -65,11 +65,11 @@ class Character extends Component {
               </div>
             )}
             <div className="caption">
-              <h3 className="name">{this.props.info.name}</h3>
-              {this.props.info.wikiUrl.length ? (
+              <h3 className="name">{this.props.character.name}</h3>
+              {this.props.character.wikiUrl !== undefined ? (
                 <p>
                   <a
-                    href={this.props.info.wikiUrl[0].url}
+                    href={this.props.character.wikiUrl}
                     className="btn btn-primary"
                     target="_blank"
                     role="button"

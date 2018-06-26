@@ -15,12 +15,26 @@
   color: white;
 }
 
+.App-body {
+  min-height: 70vh;
+}
+
 .App-title {
   font-size: 1.5em;
 }
 
 .App-intro {
   font-size: large;
+}
+
+.App-footer {
+  background-color: #222;
+  color: #fff;
+  padding: 30px 0;
+}
+
+.App-footer a {
+  color: rgb(237, 27, 42) !important;
 }
 
 .search-form {
