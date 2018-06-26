@@ -14,7 +14,7 @@ npm i
 Running in dev mode:
 
 ```bash
-npm run dev
+npm start
 ```
 
 Go to `http://localhost:3000`
