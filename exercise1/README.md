@@ -18,6 +18,6 @@ npm test
 
 Run main file:
 
-```bash 
+```bash
 npm start
 ```
