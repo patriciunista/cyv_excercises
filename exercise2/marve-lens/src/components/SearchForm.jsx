@@ -81,7 +81,10 @@ class SearchForm extends Component {
               this.props.results(res.data.results);
               this.setState(
                 {
-                  numPages: Math.floor(res.data.total / 20) + 1,
+                  numPages:
+                    (res.data.total / 20) % 1 === 0
+                      ? res.data.total / 20
+                      : Math.floor(res.data.total / 20) + 1,
                   loading: false,
                   paginationPages: []
                 },
@@ -141,7 +144,8 @@ class SearchForm extends Component {
             <Button type="submit">Search</Button>
           </FormGroup>
         </Form>
-        {this.state.paginationPages.length ? (
+        {this.state.paginationPages.length &&
+        this.state.paginationPages.length !== 1 ? (
           <Pagination>{this.state.paginationPages}</Pagination>
         ) : (
           ''
