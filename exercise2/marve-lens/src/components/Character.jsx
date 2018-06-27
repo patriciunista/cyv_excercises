@@ -25,28 +25,37 @@ class Character extends Component {
             {this.state.clicked ? (
               <div className="details">
                 <Col className="text-right">
-                  <Glyphicon glyph="remove" onClick={this.handleDetailsClick} className="close-details" />
+                  <Glyphicon
+                    glyph="remove"
+                    onClick={this.handleDetailsClick}
+                    className="close-details"
+                  />
                 </Col>
                 <h4>Details</h4>
                 <li>
                   <strong>Description:</strong>{' '}
-                  {this.props.character.details.description || 'No description available.'}
+                  {this.props.character.details.description ||
+                    'No description available.'}
                 </li>
                 <li>
-                  <strong>Modified:</strong> {this.props.character.details.modified}
+                  <strong>Modified:</strong>{' '}
+                  {this.props.character.details.modified}
                 </li>
                 <li>
-                  <strong>Comics Available:</strong> {this.props.character.details.numComics}
+                  <strong>Comics Available:</strong>{' '}
+                  {this.props.character.details.numComics}
                 </li>
                 <li>
-                  <strong>Series Available:</strong> {this.props.character.details.numSeries}
+                  <strong>Series Available:</strong>{' '}
+                  {this.props.character.details.numSeries}
                 </li>
                 <li>
                   <strong>Stories Available:</strong>{' '}
                   {this.props.character.details.numStories}
                 </li>
                 <li>
-                  <strong>Events Available:</strong> {this.props.character.details.numEvents}
+                  <strong>Events Available:</strong>{' '}
+                  {this.props.character.details.numEvents}
                 </li>
               </div>
             ) : (
@@ -67,19 +76,23 @@ class Character extends Component {
             <div className="caption">
               <h3 className="name">{this.props.character.name}</h3>
               {this.props.character.wikiUrl !== undefined ? (
-                <p>
-                  <a
-                    href={this.props.character.wikiUrl}
-                    className="btn btn-primary"
-                    target="_blank"
-                    role="button"
-                  >
-                    Go to wiki
-                  </a>
-                </p>
+                <a
+                  href={this.props.character.wikiUrl}
+                  className="btn btn-danger App-button"
+                  target="_blank"
+                  role="button"
+                >
+                  Go to wiki
+                </a>
               ) : (
                 ''
               )}
+              <button
+                onClick={this.handleDetailsClick}
+                className="btn btn-danger App-button show-details"
+              >
+                {!this.state.clicked ? 'Show' : 'Hide'} details
+              </button>
             </div>
           </div>
         </div>

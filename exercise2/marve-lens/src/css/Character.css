@@ -1,4 +1,4 @@
-.character .thumbnail:hover .avatar {
+.character .thumbnail .avatar:hover {
   opacity: 0.8;
 }
 
@@ -20,13 +20,23 @@
   color: #fff;
   cursor: pointer;
   transition: 0.5s;
-  display: none;
   text-transform: uppercase;
   font-weight: bold;
+  display: none;
 }
 
-.character .avatar:hover .details-button {
+.character .show-details {
   display: inline-block;
+  margin-left: 5px;
+}
+
+@media screen and (min-width: 1024px){
+  .character .avatar:hover .details-button {
+    display: inline-block;
+  }
+  .character .show-details {
+    display: none;
+  }
 }
 
 .character .avatar .details-button:hover {
@@ -40,10 +50,10 @@
 }
 
 .character .details {
-  min-height: 280px;
+  height: 280px;
   text-align: left;
   padding: 10px 20px;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .character .details .close-details {

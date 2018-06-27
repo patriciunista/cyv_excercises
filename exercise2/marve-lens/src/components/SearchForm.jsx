@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import {
-  FormControl,
-  Button,
-  FormGroup,
-  Form,
-  Pagination
-} from 'react-bootstrap';
+import { Button, FormGroup, Form, Pagination } from 'react-bootstrap';
+import { DebounceInput } from 'react-debounce-input';
 import loadingImage from '../assets/loading.gif';
 
 class SearchForm extends Component {
@@ -18,12 +13,33 @@ class SearchForm extends Component {
       page: 0,
       numPages: 0,
       error: null,
-      paginationPages: []
+      paginationPages: [],
+      suggestions: [],
+      suggestionsText: ''
     };
   }
 
   handleInput = event => {
-    this.setState({ inputValue: event.target.value });
+    this.setState({ inputValue: event.target.value, suggestionsText: "Loading suggestions..." }, () => {
+      if (this.state.inputValue.length) {
+        fetch('api/searches/' + this.state.inputValue)
+          .then(res => res.json())
+          .then(res => {
+            if (res.data.length) {
+              this.setState({ suggestions: [...res.data] });
+            } else {
+              this.setState({ suggestions: [], suggestionsText: "No suggestions found." });
+            }
+          });
+      } else {
+        this.setState({ suggestions: [], suggestionsText: "No suggestions found." });
+      }
+    });
+  };
+
+  handleSuggestionClick = event => {
+    let searchTerm = event.target.outerText.toLowerCase();
+    this.setState({ inputValue: searchTerm }, () => this.search());
   };
 
   prevPage = () =>
@@ -86,7 +102,8 @@ class SearchForm extends Component {
                       ? res.data.total / 20
                       : Math.floor(res.data.total / 20) + 1,
                   loading: false,
-                  paginationPages: []
+                  paginationPages: [],
+                  suggestionsText: res.data.results.length ? '' : ''
                 },
                 () => {
                   this.loadPagination();
@@ -134,16 +151,38 @@ class SearchForm extends Component {
           }}
         >
           <FormGroup>
-            <FormControl
-              type="text"
+            <DebounceInput
+              minLength={0}
               placeholder={'Search for ' + this.props.for}
+              debounceTimeout={300}
+              className="App-input"
               value={this.state.inputValue}
-              onInput={this.handleInput}
               required
+              onChange={this.handleInput}
             />
-            <Button type="submit">Search</Button>
+            <Button type="submit" className="App-button">
+              Search
+            </Button>
           </FormGroup>
         </Form>
+        {this.state.suggestions.length ? (
+          <div className="suggestions">
+            {this.state.suggestions.map(suggestion => {
+              return (
+                <Button
+                  onClick={this.handleSuggestionClick}
+                  className="App-button"
+                >
+                  {suggestion._id}
+                </Button>
+              );
+            })}
+          </div>
+        ) : this.state.inputValue.length ? (
+          <p>{this.state.suggestionsText}</p>
+        ) : (
+          ''
+        )}
         {this.state.paginationPages.length &&
         this.state.paginationPages.length !== 1 ? (
           <Pagination>{this.state.paginationPages}</Pagination>

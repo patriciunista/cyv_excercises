@@ -24,10 +24,10 @@ routes.get('/', (req, res) => {
 
 
 routes.get('/:name/page/:offset', (req, res, next) => {
-
+  const reqSearchTerm = (req.params.name).toLowerCase();
   // Search in the database for the search
   return Search.findOne({
-    searchTerm: req.params.name,
+    searchTerm: reqSearchTerm,
     page: req.params.offset
   }).then((search) => {
     console.log(search)
@@ -78,7 +78,7 @@ routes.get('/:name/page/:offset', (req, res, next) => {
     
             // Save the results to the database
             return Search.insertMany([{
-              searchTerm: req.params.name,
+              searchTerm: reqSearchTerm,
               page: req.params.offset,
               ...formattedData
             }]).then((search) => {
